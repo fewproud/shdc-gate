@@ -9,18 +9,23 @@ trigger:
 pool:
   name: MyOwn
 
+variables:
+  buildConfiguration: 'Release'
+
 steps:
-- task: NuGetToolInstaller@1
-
-- task: NuGetCommand@2
+- task: UseDotNet@2
+  displayName: 'Use .NET SDK'
   inputs:
-    restoreSolution: '$(solution)'
+    packageType: 'sdk'
+    version: '8.x'
 
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+- script: dotnet --info
+  displayName: 'dotnet --info'
+
+- script: dotnet restore
+  displayName: 'Restore'
+
+- script: dotnet build -c $(buildConfiguration) --no-restore
+  displayName: 'Build'
 
 
