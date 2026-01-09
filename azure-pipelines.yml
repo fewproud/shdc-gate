@@ -31,11 +31,11 @@ steps:
 - script: dotnet build -c $(buildConfiguration) --no-restore
   displayName: 'Build'
 
-
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
     publishWebProjects: true
+    arguments: '--configuration ${buildConfiguration} --output $(Build.ArtifactStagingDirectory)/publish'
 
 - task: PublishPipelineArtifact@1
   inputs:
