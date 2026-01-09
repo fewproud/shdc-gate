@@ -12,6 +12,7 @@ pool:
 variables:
   buildConfiguration: 'Release'
   Pipeline.Workspace: '1/s/bin/Release/net10.0/WebSample.dll'
+  publishDir: '$(Build.ArtifactStagingDirectory)/publish'
 
 
 steps:
@@ -29,6 +30,12 @@ steps:
 
 - script: dotnet build -c $(buildConfiguration) --no-restore
   displayName: 'Build'
+
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
 
 - task: PublishPipelineArtifact@1
   inputs:
