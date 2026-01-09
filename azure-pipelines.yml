@@ -13,6 +13,7 @@ variables:
   buildConfiguration: 'Release'
   Pipeline.Workspace: '1/s/bin/Release/net10.0/WebSample.dll'
 
+
 steps:
 - task: UseDotNet@2
   displayName: 'Use .NET SDK'
@@ -29,4 +30,8 @@ steps:
 - script: dotnet build -c $(buildConfiguration) --no-restore
   displayName: 'Build'
 
-
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Pipeline.Workspace)'
+    artifact: 'WebSample_Publish.dll'
+    publishLocation: 'pipeline'
