@@ -11,6 +11,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  Pipeline.Workspace: '1/s/bin/Release/net10.0/WebSample.dll'
 
 steps:
 - task: UseDotNet@2
