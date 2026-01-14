@@ -48,8 +48,8 @@ steps:
     command: 'test'
     projects: 'WebSample.Tests'
 #    arguments: '--configuration $(buildConfiguration)'
-    arguments: '/p:CollectCoverage-true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./MyCoverage/'
-    
+    arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./MyCoverage/'
+
 #- task: WhiteSource@21
 #  inputs:
 #    cwd: '$(System.DefaultWorkingDirectory)'
