@@ -49,6 +49,12 @@ steps:
     projects: 'WebSample.Tests'
 #    arguments: '--configuration $(buildConfiguration)'
     arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./MyCoverage/'
+- task: PublishCodeCoverageResults@2
+  inputs:
+    summaryFileLocation: 'MyCoverage'
+    pathToSources: 'WebSample'
+#    codeCoverageTool: 'Cobertura'
+    failIfCoverageEmpty: true
 
 #- task: WhiteSource@21
 #  inputs:
