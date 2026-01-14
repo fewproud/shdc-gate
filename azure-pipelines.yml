@@ -43,6 +43,12 @@ steps:
     artifact: 'WebSample.dll'
     publishLocation: 'pipeline'
 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: 'WebSample.Tests'
+    arguments: '--configuration $(buildConfiguration)'
+
 #- task: WhiteSource@21
 #  inputs:
 #    cwd: '$(System.DefaultWorkingDirectory)'
