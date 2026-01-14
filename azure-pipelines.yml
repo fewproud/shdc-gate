@@ -28,7 +28,7 @@ steps:
 - script: dotnet restore WebSample
   displayName: 'Restore'
 
-- script: dotnet build -c $(buildConfiguration) --no-restore
+- script: dotnet build WebSample -c $(buildConfiguration) --no-restore
   displayName: 'Build'
 
 - task: DotNetCoreCLI@2
