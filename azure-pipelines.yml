@@ -25,7 +25,7 @@ steps:
 - script: dotnet --info
   displayName: 'dotnet --info'
 
-- script: dotnet restore
+- script: dotnet restore WebSample
   displayName: 'Restore'
 
 - script: dotnet build -c $(buildConfiguration) --no-restore
