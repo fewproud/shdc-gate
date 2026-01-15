@@ -1,0 +1,25 @@
+name: Trigger Azure DevOps Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      ado_branch:
+        description: "Branch name to send as variable (optional)"
+        required: false
+        default: "main"
+  push:
+    branches: [ "main" ]
+
+jobs:
+  trigger-ado:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Azure Pipeline
+        uses: Azure/pipelines@v1
+        with:
+          # Fully qualified URL: https://dev.azure.com/{org}/{project}
+          azure-devops-project-url: "https://dev.azure.com/xgg0111/test1"
+          # The Azure DevOps pipeline name (as shown in Pipelines UI)
+          azure-pipeline-name: "fewproud.shdc-gate"
+          # PAT stored in GitHub Secrets
+          azure-devops-token: "${{ secrets.AZURE_DEVOPS_TOKEN }}"
