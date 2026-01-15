@@ -46,7 +46,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    projects: 'WebSample.Tests'
+    projects: 'WebSample.Tests/WebSample.Tests.csproj'
     arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" --results-directory "$(testResultsDir)" --logger "trx"'
 #    arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./MyCoverage/'
 - task: PublishCodeCoverageResults@2
