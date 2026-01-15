@@ -44,6 +44,7 @@ steps:
 - script: dotnet build WebSample -c $(buildConfiguration) --no-restore
   displayName: 'Build'
 
+# run Sonar analysis
 - task: SonarCloudAnalyze@4
   inputs:
     jdkversion: 'JAVA_HOME'
