@@ -51,7 +51,7 @@ steps:
 #    arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./MyCoverage/'
 - task: PublishCodeCoverageResults@2
   inputs:
-    summaryFileLocation: '$(Agent.TempDirectory)/TestResults/**/coverage.cobertura.xml'
+    summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
     pathToSources: 'WebSample'
 #    codeCoverageTool: 'Cobertura'
     failIfCoverageEmpty: true
