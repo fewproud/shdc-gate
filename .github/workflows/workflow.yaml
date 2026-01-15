@@ -23,5 +23,6 @@ jobs:
           azure-pipeline-name: "fewproud.shdc-gate"
           # PAT stored in GitHub Secrets
           azure-devops-token: "${{ secrets.AZURE_DEVOPS_TOKEN }}"
-          
+
+
 
