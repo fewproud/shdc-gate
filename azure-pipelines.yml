@@ -47,8 +47,8 @@ steps:
   inputs:
     command: 'test'
     projects: 'WebSample.Tests'
-#    arguments: '--configuration $(buildConfiguration)'
-    arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./MyCoverage/'
+    arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" --results-directory "$(testResultsDir)" --logger "trx"**'
+#    arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./MyCoverage/'
 - task: PublishCodeCoverageResults@2
   inputs:
     summaryFileLocation: 'MyCoverage'
