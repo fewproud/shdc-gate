@@ -15,68 +15,72 @@ variables:
   publishDir: '$(Build.ArtifactStagingDirectory)/publish'
   testResultsDir: '$(Agent.TempDirectory)/TestResults'
 
-steps:
-- checkout: self
-  fetchDepth: 0
+stages:
+- stage: Build
+  jobs:
+    - job: build_job
+      steps:
+      - checkout: self
+        fetchDepth: 0
 
-- task: SonarCloudPrepare@4
-  inputs:
-    SonarQube: 'MySonarCloud'
-    organization: 'xgg0111'
-    scannerMode: 'dotnet'
-    projectKey: 'xgg0111_test1'
-    projectName: 'test1'
-
-
-
-- task: UseDotNet@2
-  displayName: 'Use .NET SDK'
-  inputs:
-    packageType: 'sdk'
-    version: '10.x'
-
-- script: dotnet --info
-  displayName: 'dotnet --info'
-
-- script: dotnet restore WebSample
-  displayName: 'Restore'
-
-- script: dotnet build WebSample -c $(buildConfiguration) --no-restore
-  displayName: 'Build'
-
-# run Sonar analysis
-- task: SonarCloudAnalyze@4
-  inputs:
-    jdkversion: 'JAVA_HOME'
+      - task: SonarCloudPrepare@4
+        inputs:
+          SonarQube: 'MySonarCloud'
+          organization: 'xgg0111'
+          scannerMode: 'dotnet'
+          projectKey: 'xgg0111_test1'
+          projectName: 'test1'
 
 
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'publish'
-    publishWebProjects: true
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/mypublish'
+      - task: UseDotNet@2
+        displayName: 'Use .NET SDK'
+        inputs:
+          packageType: 'sdk'
+          version: '10.x'
 
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Pipeline.Workspace)'
-    artifact: 'WebSample.dll'
-    publishLocation: 'pipeline'
+      - script: dotnet --info
+        displayName: 'dotnet --info'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'test'
-    projects: 'WebSample.Tests/WebSample.Tests.csproj'
-    arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" --logger trx'
-#    arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./MyCoverage/'
-- task: PublishCodeCoverageResults@2
-  inputs:
-    summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
-    pathToSources: 'WebSample'
-#    codeCoverageTool: 'Cobertura'
-    failIfCoverageEmpty: true
+      - script: dotnet restore WebSample
+        displayName: 'Restore'
 
-#- task: WhiteSource@21
-#  inputs:
-#    cwd: '$(System.DefaultWorkingDirectory)'
-#    projectName: 'Internal1'
+      - script: dotnet build WebSample -c $(buildConfiguration) --no-restore
+        displayName: 'Build'
+
+      # run Sonar analysis
+      - task: SonarCloudAnalyze@4
+        inputs:
+          jdkversion: 'JAVA_HOME'
+
+
+
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'publish'
+          publishWebProjects: true
+          arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/mypublish'
+
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: '$(Pipeline.Workspace)'
+          artifact: 'WebSample.dll'
+          publishLocation: 'pipeline'
+
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'test'
+          projects: 'WebSample.Tests/WebSample.Tests.csproj'
+          arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" --logger trx'
+      #    arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./MyCoverage/'
+      - task: PublishCodeCoverageResults@2
+        inputs:
+          summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
+          pathToSources: 'WebSample'
+      #    codeCoverageTool: 'Cobertura'
+          failIfCoverageEmpty: true
+
+      #- task: WhiteSource@21
+      #  inputs:
+      #    cwd: '$(System.DefaultWorkingDirectory)'
+      #    projectName: 'Internal1'
