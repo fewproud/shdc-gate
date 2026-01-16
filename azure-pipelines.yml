@@ -91,6 +91,8 @@ stages:
   jobs:
   - deployment: DeployDev
     environment: dev
+    workspace:
+      clean: all
     strategy:
       runOnce:
         deploy:
