@@ -101,4 +101,4 @@ stages:
              azureSubscription: 'Azure subscription 1(69291939-fa34-4ca5-96d0-3806774a8df0)'
              appType: 'webApp'
              appName: 'FourthWebApp'
-             package: '$(Pipeline.Workspace)/drop/*'
+             package: '$(Pipeline.Workspace)/drop/*.zip'
