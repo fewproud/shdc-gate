@@ -84,3 +84,20 @@ stages:
       #  inputs:
       #    cwd: '$(System.DefaultWorkingDirectory)'
       #    projectName: 'Internal1'
+
+- stage: deploy
+  displayName: Deploy to Dev
+  dependsOn: Build
+  jobs:
+  - deployment: DeployDev
+    environment: dev
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo "deploy to dev here"
+          # - task: AzureWebApp@1
+          #   inputs:
+          #     azureSubscription: 'YOUR-SC'
+          #     appName: 'YOUR-APP'
+          #     package: '$(Pipeline.Workspace)/drop/**/*.zip'
