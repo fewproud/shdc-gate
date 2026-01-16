@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/69291939-fa34-4ca5-96d0-3806774a8df0/resourceGroups/learn/providers/Microsoft.Web/sites/MyFirstWebApp",
+    "appService.deploySubpath": "publish"
+}
