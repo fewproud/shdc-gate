@@ -96,8 +96,9 @@ stages:
         deploy:
           steps:
           - script: echo "deploy to dev here"
-          # - task: AzureWebApp@1
-          #   inputs:
-          #     azureSubscription: 'YOUR-SC'
-          #     appName: 'YOUR-APP'
-          #     package: '$(Pipeline.Workspace)/drop/**/*.zip'
+          - task: AzureWebApp@1
+            inputs:
+             azureSubscription: 'Azure subscription 1(69291939-fa34-4ca5-96d0-3806774a8df0)'
+             appType: 'webApp'
+             appName: 'FourthWebApp'
+             package: '$(Pipeline.Workspace)/drop/**'
