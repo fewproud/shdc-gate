@@ -64,7 +64,7 @@ stages:
       - task: PublishPipelineArtifact@1
         inputs:
           targetPath: '$(Pipeline.Workspace)'
-          artifact: 'WebSample.dll'
+          artifact: 'drop'
           publishLocation: 'pipeline'
 
       - task: DotNetCoreCLI@2
