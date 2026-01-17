@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  name: MyOwn
+  name: default
 
 variables:
   buildConfiguration: 'Release'
@@ -17,8 +17,12 @@ variables:
 
 stages:
 - stage: Build
+  pool:
+    name: MyOwn
   jobs:
     - job: build_job
+      pool:
+        name: MyOwn
       steps:
       - checkout: self
         fetchDepth: 0
@@ -88,6 +92,8 @@ stages:
 - stage: deploy
   displayName: Deploy to Dev
   dependsOn: Build
+  pool:
+    name: MyOwn
   jobs:
   - deployment: DeployDev
     environment: dev
