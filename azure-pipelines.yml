@@ -95,14 +95,7 @@ stages:
   pool:
     name: MyOwn
   jobs:
-  - job: prework
-    pool: server
-    steps: 
-    - task: ManualValidation@1
-      inputs:
-        notifyUsers: 'xgg0111@163.com'
-        instructions: 'please verify'
-  - deployment: DeployDev
+  - deployment: DeployDev1
     environment: dev
     workspace:
       clean: all
@@ -111,6 +104,22 @@ stages:
         deploy:
           steps:
           - script: echo "deploy to dev here"
+
+  - job: validation
+    pool: server
+    steps: 
+    - task: ManualValidation@1
+      inputs:
+        notifyUsers: 'xgg0111@163.com'
+        instructions: 'please verify'
+  - deployment: DeployDev2
+    environment: dev
+    workspace:
+      clean: all
+    strategy:
+      runOnce:
+        deploy:
+          steps:
 
           - task: AzureWebApp@1
             inputs:
