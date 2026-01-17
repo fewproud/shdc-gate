@@ -95,6 +95,13 @@ stages:
   pool:
     name: MyOwn
   jobs:
+  - job: prework
+    pool: server
+    steps: 
+    - task: ManualValidation@1
+      inputs:
+        notifyUsers: 'xgg0111@163.com'
+        instructions: 'please verify'
   - deployment: DeployDev
     environment: dev
     workspace:
@@ -104,6 +111,7 @@ stages:
         deploy:
           steps:
           - script: echo "deploy to dev here"
+
           - task: AzureWebApp@1
             inputs:
              azureSubscription: 'Azure subscription 1(69291939-fa34-4ca5-96d0-3806774a8df0)'
@@ -126,6 +134,7 @@ stages:
         deploy:
           steps:
           - script: echo "deploy to staging here"
+
           - task: AzureWebApp@1
             inputs:
              azureSubscription: 'Azure subscription 1(69291939-fa34-4ca5-96d0-3806774a8df0)'
